@@ -13,8 +13,8 @@
      * This lab tests your ability to implement recursion for several functions.
      * 
      * @authors: Stephen, Mukhtar, MoSho
-     * @editer: YOUR_NAME_HERE
-     * @version DATE_HERE
+     * @editer: Bach Nguyen-Ngo
+     * @version 03-28-2019
      */
 
     /** **********************************************************************
@@ -33,9 +33,10 @@
          * Here is the base case (ending condition): value == 1.
          * This lets our recursion know when to stop.
          */
-        //TODO
-
-
+        if (value == 1)   {
+            return 1;
+        }
+       
         /*
          * Here is the recursive statement. The function calls itself when the 
          * base case is not met.
@@ -44,7 +45,9 @@
          * 
          * By doing this, we break up the equation n! into n! = n * (n-1)!.
          */
-        //TODO
+       else   {
+           return value * factorial(value - 1);
+       }
 
     }
 
@@ -66,7 +69,14 @@
      */
     public int fibonacci(int n)
     {
-        //TODO
+        if (n < 2)   {
+
+            return 1;
+        }
+
+        else  {
+            return fibonacci(n-1) + fibonacci(n-2);
+        }
     }
 
     
@@ -98,23 +108,23 @@
         private int value;
     
         public Tree(int value)
-        {
-    	    //TODO
+        {   children = new ArrayList<Tree>();
+    	    this.value = value;
         }
     
         public int getValue()
         {
-    	    //TODO
+    	    return value;
         }
     
         public ArrayList<Tree> getChildren()
         {
-    	    //TODO
+    	    return children;
         }
     
         public void add(Tree child)
         {
-    	    //TODO
+    	    children.add(child);
         }
     }
     
@@ -125,7 +135,7 @@
      * computes in general what the size of an n-nary tree is, for a given
      * n and a given height. The size is simply the number of nodes in the tree. 
      * We assume that each node has the maximum (n) number of child nodes.
-     * 
+     * 7
      * For example, for an n (called the branching factor here) of 4 and a 
      * height of 3, the tree at the first level has 1 node. At the next level, 
      * it has 4 nodes, as the root has 4 children. The next level has 16 nodes, 
@@ -145,14 +155,17 @@
      * @return The size of the subtree - the number of nodes.
      */
     public int nnaryTreeSize(int branchingFactor, int height)
-    {
+    {      
+        int nodes; 
         if (height == 1) 
         {
-    	    //TODO
+    	    return 1;
         }
         
-    	//TODO
-    }
+    	else   {
+            return (int) Math.pow(branchingFactor, height - 1) + nnaryTreeSize( branchingFactor, height -1 );
+        }
+    } 
 
     /** **********************************************************************
      * This function uses the Tree data structure defined above. This simply sums up the all
@@ -163,8 +176,11 @@
      * @return The sum of the values in the subtree.
      */
     public int treeSum(Tree tree)
-    {
-    	//TODO
+    {   int total = 0;
+        for (Tree child : tree.getChildren())   {
+            total = child.getValue() + treeSum(child);
+        }
+        return total + tree.getValue();
     }
     
     /** **********************************************************************
